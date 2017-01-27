@@ -1,0 +1,48 @@
+<h1>New User</h1>
+
+<!--
+1st generation simple HTML form
+
+<form action="/users" method="post" accept-charset="UTF-8">
+  <label for="username">Username: </label><input type="text" name="user[username]" id="username"><br>
+  <label for="email">Email:  </label><input type="text" name="user[email]" id="email"><br>
+
+	  <label for="password">Password:  </label><input type="password" name="user[password]" id="password"><br>
+  <input type="submit" value="Submit">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+</form>
+-->
+
+<!--
+2nd generation form_tag form
+
+<%= form_tag("/users", method: "post") do %>
+  <%= label_tag(:username, "Username:") %>
+  <%= text_field_tag(:username) %><br>
+  <%= label_tag(:email, "Email:") %>
+  <%= text_field_tag(:email) %><br>
+  <%= label_tag(:password, "Password:") %>
+  <%= password_field_tag(:password) %><br>
+  <%= submit_tag("Submit") %>
+<% end %>
+-->
+
+<!-- 3rd generation form_for form -->
+<%= form_for @user do |f| %>
+
+<ul>
+  <% @user.errors.full_messages.each do |error| %>
+  <li><%= error %></li>
+  <% end %>
+</ul>
+
+  Your username here:
+  <%= f.text_field :username %><br>
+  <%= f.label :email %>:
+  <%= f.text_field :email, value: "prepopulated@example.com", placeholder: "example@example.com" %><br>
+  <%= f.label :password %>:
+  <%= f.password_field :password %><br>
+  <%= f.submit "Submit" %>
+<% end %>
+
+<!--%= render 'form', user: @user %-->
